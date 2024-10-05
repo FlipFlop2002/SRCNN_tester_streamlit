@@ -30,7 +30,7 @@ if uploaded_file is not None:
     tensor_bicubic_img = pil_to_tensor(pil_bicubic_image)
     # inicjalizacja modelu SRCNN i przepuszczenie obrazu lr przez sieć
     model = SRCNN()
-    model.load_state_dict(torch.load(model_state_dict_path))
+    model.load_state_dict(torch.load(model_state_dict_path, map_location='cpu'))
     model.eval()
     tensor_sr_img = model(tensor_bicubic_img.unsqueeze(0)).squeeze(0)
     tensor_sr_img = tensor_sr_img.clamp(0, 1)
